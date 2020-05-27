@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "forkify project",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
@@ -21,6 +24,7 @@
   },
   "dependencies": {
     "@babel/preset-react": "^7.9.4",
+    "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0"
   }
 }
