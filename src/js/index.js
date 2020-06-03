@@ -67,7 +67,6 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
     //Get the ID from url
     const id = window.location.hash.replace('#', '');
-    console.log(id);
 
     if (id) {
         //Prepare UI for changes
@@ -96,15 +95,12 @@ const controlRecipe = async () => {
             console.log(error);
             alert("Error processing recipe!");
         }
-        
-
     }
 };
 
 /**
  * LIST CONTROLLER
  */
-
  const controlList = () => {
     // Create a new list if there is none yet
     if (!state.list) state.list = new List();
@@ -136,13 +132,10 @@ const controlRecipe = async () => {
  //window.addEventListener('load', controlRecipe);
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
+
 /**
  * LIKES CONTROLLER
  */
-
- state.likes = new Likes(); //testing 
- likesView.toggleLikeMenu(state.likes.getNumberOfLikes()); //testing 
-
 const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
     const currentID = state.recipe.id;
@@ -176,6 +169,20 @@ const controlLike = () => {
 };
 
 
+//Restore liked recipes on page load
+window.addEventListener('load', () => {
+    state.likes = new Likes(); 
+
+    // Restore likes
+    state.likes.readStorage();
+
+    // Toggle like menu button
+    likesView.toggleLikeMenu(state.likes.getNumberOfLikes()); 
+
+    //Render the exising likes
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
+
 //Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
     if(e.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -197,5 +204,3 @@ elements.recipe.addEventListener('click', e => {
         controlLike();
     }
 });
-
-window.l = new List 
